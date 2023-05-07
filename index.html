@@ -3,11 +3,149 @@
 
 <head>
   <title>XYZ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
+.bulb {
+  position: fixed;
+  top: 80px;
+  left: 1250px;
+  width: 180px;
+  height: 180px;
+  border-radius: 70%;
+  transition: all 0.3s ease-in-out;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  background-image: url('https://i.ibb.co/HTYm84k/img2.jpg'); /* add the bulb image */
+  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+
+.off {
+  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.on {
+  box-shadow: 0 0 10px yellow, 0 0 20px yellow, 0 0 30px yellow, 0 0 40px yellow;
+  transform: rotateX(-45deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.bulb::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 10px rgba(255, 255, 255, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.5);
+  /* add the transparent effect on the bulb using box-shadow */
+}
+
+.container {
+  position: fixed;
+  top: 40px;
+  left: 80px;
+  width: 250px;
+  height: 250px;
+}
+
+.electricity {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #FFC107;
+  animation: electricity 1s linear infinite alternate;
+  transform-origin: 50% 0;
+}
+
+.light {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  background-color: #FFF59D;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #FFF59D, 0 0 20px #FFF59D, 0 0 30px #FFF59D, 0 0 40px #FFF59D;
+  animation: light 1s linear infinite alternate;
+  transform-origin: 50% 0;
+}
+
+.fan {
+  position: absolute;
+  top: 60%;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  background: url('https://i.ibb.co/MppbCSb/img1.jpg') no-repeat center center;
+  background-size: contain;
+  background-color: black;
+  border-radius: 50%;
+  animation: fan 1s linear infinite;
+  transform-origin: 50% 0;
+}
+
+@keyframes electricity {
+  0% {
+    transform: rotate(-20deg);
+  }
+  100% {
+    transform: rotate(20deg);
+  }
+}
+
+@keyframes light {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes fan {
+  0% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
+}
+
+
+
+.background {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+	animation: backgroundAnimation 10s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundAnimation {
+	0% {
+		background-position: 0 0;
+	}
+
+	100% {
+		background-position: -200px -200px;
+	}
+}
+
   .toggle {
     position: relative;
     display: inline-block;
@@ -88,7 +226,7 @@
     width: 300px;
     height: 400px;
     background-color: white;
-    position: absolute;
+    position:absolute;
     top: 0;
     bottom: 0;
     left: 0;
@@ -211,6 +349,99 @@
   .slider.round {
     border-radius: 34px;
   }
+  .masthead{
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    
+    
+    text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+
+  }
+  .myButton , .myButton1 {
+	padding: 10px 20px;
+	border: none;
+	color: #fff;
+	border-radius: 5px;
+	font-size: 18px;
+	cursor: pointer;
+	animation: btnAnimation 1s ease-in-out infinite;
+}
+
+@keyframes btnAnimation {
+	0% {
+		transform: translateX(0);
+	}
+
+	50% {
+		transform: translateX(10px);
+	}
+
+	100% {
+		transform: translateX(0);
+	}
+}
+.mbutton {
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #3498db;
+	color: #fff;
+	font-size: 20px;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	transition: all 0.3s ease-out;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+}
+
+.btn:before {
+	content: "";
+	position: absolute;
+	top: -120%;
+	left: -120%;
+	width: 200%;
+	height: 200%;
+	background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 80%);
+	transform: scale(0);
+	transition: all 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.btn:hover:before {
+	top: -30%;
+	left: -30%;
+	transform: scale(3);
+}
+
+.btn:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,0.2);
+	opacity: 0;
+	transition: all 0.3s ease-out;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+.btn:hover:after {
+	opacity: 1;
+}
+
+.btn:hover {
+	background-color: #2980b9;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	transform: translateY(-2px);
+}
+
+
 </style>
 
 <body>
@@ -218,18 +449,56 @@
     <input type="checkbox" id="toggleButton">
     <span class="slider round"></span>
 </label></p> -->
-  <p> <label class="toggle">
-      <input type="checkbox" id="toggleButton" class="manual">
-      <span class="slider round"></span>
+<div
+  class="masthead"
+  style="background-image: url('https://i.ibb.co/LxCbmNr/bground.jpg');">
+  <div class="color-overlay d-flex justify-content-center align-items-center" >
+    <div class=" text-white  badge fs-3" style="width: 20rem top 30rem;">
+    BLE Triggered Smart Office
+   </div></div>
+
+   
+   <div class="color-overlay d-flex justify-content-center align-items-center">
+   
+  <p> 
+    <div class="bulb off" >
+    <label class="toggle">
+      <input type="checkbox"  id="toggleButton" class="manual ">
+      <span class="slider round"></span></div>
+      <!-- <input type="checkbox" id="toggleButton" class="manual">
+      <span class="slider round"></span> -->
     </label></p>
+  </div>
+  <div class="color-overlay d-flex justify-content-center align-items-center">
+    
+ 
+
   <button id="button1" onclick="handleButtonClick('1');" class="myButton">On</button>
   <button id="button2" onclick="handleButtonClick('0');  handleget();" class="myButton"
-    style="background-color:red">Off</button><br>
+    style="background-color:red">Off</button><br></div>
+    <br>
+   <div class="color-overlay d-flex justify-content-center align-items-center">
   <button id="button3" onclick="handleButtonClick1('1');" class="myButton1"
     style="background-color:rgb(66, 199, 66)">On</button>
   <button id="button4" onclick="handleButtonClick1('0');  handleget1();" class="myButton1">Off</button>
   <br>
-  <button id="button5" class="mbutton" onclick="handleBill('button5')">Calculate Energy Used</button>
+</div>
+<!-- <div class="container">
+  <div class="electricity"></div>
+  <div class="light"></div>
+  <div class="fan"></div>
+</div> -->
+
+
+<div class="container">
+  <div class="electricity"></div>
+  <div class="light"></div>
+  <div class="fan"></div>
+</div>
+<div class="color-overlay d-flex justify-content-center align-items-center">
+  <button id="button5" class="mbutton" onclick="handleBill('button5')">Calculate Energy Used</button></div>
+ 
+ <div class="color-overlay d-flex justify-content-start align-items-center">
   <div class="payment" id="myDiv">
     <h1 class="payTitle">Energy Bill</h1>
     <label for="lightEnergy">Total energy used by Light:</label>
@@ -243,7 +512,9 @@
     <br>
     <span class="close">X</span>
   </div>
+</div>
 
+</div>
 
   <script>
     var firebaseConfig = {
@@ -265,6 +536,7 @@
     var button2 = document.getElementById('button2');
     var button3 = document.getElementById('button3');
     var mcb = document.getElementById('toggleButton')
+    var bulb = document.querySelector('.bulb');
 
     $(document).ready(function () {
       var database = firebase.database();
@@ -295,12 +567,18 @@
           document.getElementById("button2").style.display = "block";
           document.getElementById("button3").style.display = "block";
           document.getElementById("button4").style.display = "block";
+          bulb.classList.remove('off');
+    bulb.classList.add('on');
+
         } else {
           document.getElementById("toggleButton").checked = false;
           document.getElementById("button1").style.display = "none";
           document.getElementById("button2").style.display = "none";
           document.getElementById("button3").style.display = "none";
           document.getElementById("button4").style.display = "none";
+          
+    bulb.classList.remove('on');
+    bulb.classList.add('off');
         }
 
       });
@@ -343,6 +621,16 @@
   </script>
 
   <script>
+//    function toggleBulb() {
+//   var bulb = document.querySelector('.bulb');
+//   if (bulb.classList.contains('off')) {
+//     bulb.classList.remove('off');
+//     bulb.classList.add('on');
+//   } else {
+//     bulb.classList.remove('on');
+//     bulb.classList.add('off');
+//   }
+// }
     function handleButtonClick(buttonId) {
       const xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
@@ -456,6 +744,7 @@
       myDiv.style.display = 'none';
     });
   </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 
 </html>
